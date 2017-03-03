@@ -1,0 +1,9 @@
+[program:loginka]
+command=/usr/bin/uwsgi --ini /etc/uwsgi/apps-available/uwsgi.ini
+directory= {{ project_homedir }}
+stdout_logfile={{ project_dir }}/logs/uwsgi_acces.log
+stderr_logfile={{ project_dir }}/logs/uwsgi_error.log
+autostart=true
+autorestart=true
+redirect_stderr=true
+stopwaitsecs = 60

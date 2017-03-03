@@ -1,0 +1,16 @@
+---
+
+- name: Ansible playbook to deploy a Django app
+  sudo: yes
+  hosts: vagrant
+  gather_facts: False
+ 
+#  vars:
+#    - ansible_sudo_pass: cf88076h
+
+  roles:
+    - { role: system, sudo: yes }
+    - { role: django, sudo: yes }
+    - { role: virt }
+    - { role: services, sudo: yes }
+

@@ -1,0 +1,25 @@
+#
+
+username: ubuntu
+#chiuser
+user_homedir: "/home/{{ username }}"
+
+# database user
+
+
+
+# project options
+# 
+project_slug: loginka
+project_dir: "{{ user_homedir }}/{{ project_slug }}"
+project_homedir: "{{ user_homedir }}/{{ project_slug }}/{{ project_slug }}"
+
+#virtual env
+env: "{{ project_dir }}/env"
+
+uwsgi_port: 9000
+# django settings
+
+debug: True
+requirements: 'requiments.txt'
+

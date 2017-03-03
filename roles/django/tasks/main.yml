@@ -1,0 +1,24 @@
+---
+
+- name: create project directory
+  file: path={{project_dir}} state=directory
+
+- name: create logs directory
+  file: path={{ project_dir }}/logs state=directory
+
+#- name: create project home directory
+#  file: path={{ project_homedir }} state=directory
+
+#- name: create unix socket
+#  shell: cd {{ project_dir }} && mkfifo file.sock
+
+# archive project or git for exsist project
+#- name: unarchive project
+#  unarchive: src=/tmp/django_deploy.tar dest={{ project_homedir }}
+
+- name: copy uwsgi file
+  template: src=uwsgi.ini.j2 dest=/etc/uwsgi/apps-available/uwsgi.ini
+
+- name: enable uwsgi app
+  file: src=/etc/uwsgi/apps-available/uwsgi.ini dest=/etc/uwsgi/apps-enabled/uwsgi.ini state=link
+

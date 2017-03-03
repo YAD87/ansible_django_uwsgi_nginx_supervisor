@@ -1,0 +1,33 @@
+---
+
+- name: Update cache
+  apt: update_cache=yes
+
+- name: Install system packages
+  apt: pkg={{ item }} update_cache=yes state=present
+  with_items:
+      - "{{ system_packages }}"
+
+- name: Update pip
+  pip: name=pip state=latest
+
+- name: copy supervisor config
+  template: src=supervisor.conf.j2 dest=/etc/supervisor/conf.d/{{ project_slug }}.conf
+  
+#- name: supervisor restart
+#  shell: service supervisor restart
+
+- name: copy nginx config
+  template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/{{ project_slug }}.conf
+
+- name: cope uwsgi_param
+  template: src=uwsgi_params.j2 dest=/etc/nginx/sites-available/uwsgi_params
+
+- name: create symlink nginx config
+  file: src=/etc/nginx/sites-available/{{ project_slug }}.conf dest=/etc/nginx/sites-enabled/{{ project_slug}}.conf state=link
+
+- name: Ensure that the default site is disabled 
+  file: path=/etc/nginx/sites-enabled/default state=absent
+
+#- name: nginx restart
+#  shell: service nginx restart  

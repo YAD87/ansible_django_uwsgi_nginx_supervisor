@@ -1,0 +1,33 @@
+---
+
+- name: create virtualenv
+  command: virtualenv {{ env }} creates={{ env }}/bin/activate
+
+#- name: Install packages requirements into virtualenv
+#  shell: pip install -r {{ project_homedir }}/LOGINKA/{{ requirements }}
+
+- pip:
+    name: django
+    virtualenv: "{{ env }}"
+
+- name: create new project
+  command: "{{ env }}/bin/django-admin.py startproject {{ project_slug }} chdir={{ project_dir }}"
+
+- name: create media directory
+  file: path={{ project_homedir }}/media state=directory
+
+- name: create static
+  file: path={{ project_homedir }}/static state=directory
+
+- name: migrate database
+  django_manage: command=migrate virtualenv={{ env }} app_path={{ project_homedir }}
+
+- name: delete default settings.py
+  shell: cd {{ project_homedir }}/loginka && rm settings.py
+
+- name: create my settings
+  template: src=settings.py.j2 dest={{ project_homedir }}/loginka/settings.py
+ 
+- name: collectstatic
+  django_manage: command=collectstatic virtualenv={{ env }} app_path={{ project_homedir }}
+

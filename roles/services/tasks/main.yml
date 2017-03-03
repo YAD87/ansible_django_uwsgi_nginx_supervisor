@@ -1,0 +1,12 @@
+---
+
+- name: supervisor restart
+  shell: service supervisor restart
+
+# - name: DB restart
+  
+- name: nginx restart
+  shell: service nginx restart
+
+#- name: start uwsgi
+#  shell: cd /etc/uwsgi/apps-available/ && uwsgi --ini uwsgi.ini

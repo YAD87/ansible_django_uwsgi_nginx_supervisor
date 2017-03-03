@@ -1,0 +1,20 @@
+[uwsgi]
+plugins=python
+home={{ env }}                       
+chdir={{ project_homedir }}
+wsgi-file=/home/ubuntu/loginka/loginka/loginka/wsgi.py                   
+master=True
+module=loginka.wsgi:application
+disable-logging=False
+vacuum=True
+pidfile={{ project_dir }}/Worddict.pid
+max-requests=5000
+#socket=127.0.0.1:5000
+socket={{ project_dir }}/file.sock
+processes=4
+chmod-socket=666
+
+pythonpath={{ project_homedir }}/loginka                       
+
+#touch-reload={{project_dir}}/reload_uwsgi
+

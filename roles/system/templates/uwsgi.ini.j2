@@ -1,0 +1,19 @@
+[uwsgi]
+home={{env}}                       
+chdir={{ project_dir }}                   
+master=True
+disable-logging=False
+vacuum=True
+pidfile={{ project_dir }}/Worddict.pid
+max-requests=5000
+# socket=127.0.0.1:5000
+socket={{ project_dir }}/file.sock
+processes=4
+socket-chmod=666
+
+pythonpath={{project_homedir}}                       
+env=DJANGO_SETTINGS_MODULE=main.settings.production
+module = django.core.wsgi:get_wsgi_application()
+
+touch-reload={{project_dir}}/reload_uwsgi
+

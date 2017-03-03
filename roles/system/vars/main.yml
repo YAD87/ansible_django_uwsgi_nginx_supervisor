@@ -1,0 +1,21 @@
+---
+# Packages to be installed
+system_packages:
+  - build-essential
+  - git
+  - libevent-dev
+  - nginx
+  - python-dev
+  - python-pip
+  - python-virtualenv
+  - python-setuptools
+  - python-software-properties
+  - openssh-server
+  - libffi-dev
+  - sqlite3
+  - supervisor
+  - uwsgi
+  - uwsgi-plugin-python
+  - libpq-dev
+  - python-pycurl
+  - ipython
